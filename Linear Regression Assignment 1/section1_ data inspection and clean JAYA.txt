@@ -1,0 +1,259 @@
+section1; data inspection and cleaning
+
+
+Q1)
+# Step 1: Import necessary libraries
+import pandas as pd
+
+# Step 2: Load the dataset
+# Replace 'your_file.csv' with the actual filename or path
+df = pd.read_csv('your_file.csv')
+
+# Step 3: Display the first row of the dataset
+print("First row of the dataset:")
+print(df.head(1))
+
+# Step 4: List all columns in the dataset
+print("\nColumns in the dataset:")
+print(df.columns.tolist())
+
+# Step 5: Check for missing values
+print("\nMissing values in each column:")
+print(df.isnull().sum())
+
+# Step 6: Check data types of each column
+print("\nData types of each column:")
+print(df.dtypes)
+
+
+
+Q2)
+ANS;import pandas as pd
+
+# Load your dataset
+df = pd.read_csv('your_file.csv')
+
+# 1. Drop duplicate records
+df.drop_duplicates(inplace=True)
+
+# 2. Drop rows with too many missing values (e.g., more than 50% missing)
+threshold = len(df.columns) * 0.5
+df = df.dropna(thresh=threshold)
+
+# 3. Handle missing values by imputing
+for col in df.columns:
+    if df[col].isnull().sum() > 0:
+        if df[col].dtype in ['float64', 'int64']:
+            # Numeric column: fill with mean
+            df[col].fillna(df[col].mean(), inplace=True)
+        else:
+            # Categorical column: fill with mode
+            df[col].fillna(df[col].mode()[0], inplace=True)
+
+# Result
+print(" Data cleaned successfully.")
+print(df.info())
+
+
+Q3)
+
+
+ANS)import pandas as pd
+import matplotlib.pyplot as plt
+import seaborn as sns
+
+# Load dataset
+df = pd.read_csv('your_file.csv')
+
+# Identify numerical columns
+num_cols = df.select_dtypes(include=['int64', 'float64']).columns
+
+# Plot histograms and boxplots
+for col in num_cols:
+    plt.figure(figsize=(14, 5))
+
+    # Histogram
+    plt.subplot(1, 2, 1)
+    sns.histplot(df[col], kde=True, bins=30, color='skyblue')
+    plt.title(f'Histogram of {col}')
+    
+    # Boxplot
+    plt.subplot(1, 2, 2)
+    sns.boxplot(x=df[col], color='lightcoral')
+    plt.title(f'Boxplot of {col}')
+    
+    plt.tight_layout()
+    plt.show()
+
+    # Observations
+    print(f" Observations for '{col}':")
+    print(f"   Mean: {df[col].mean():.2f}")
+    print(f"   Median: {df[col].median():.2f}")
+    print(f"   Std Dev: {df[col].std():.2f}")
+    print(f"   Skewness: {df[col].skew():.2f}")
+    if df[col].skew() > 1:
+        print("   Highly positively skewed")
+    elif df[col].skew() < -1:
+        print("  Highly negatively skewed")
+    elif -0.5 <= df[col].skew() <= 0.5:
+        print("   Approximately symmetric")
+    else:
+        print("   Moderately skew
+
+
+Q4) ANS) import pandas as pd
+import matplotlib.pyplot as plt
+import seaborn as sns
+
+# Load the dataset
+df = pd.read_csv('your_file.csv')
+
+# Assuming 'charges' is the target variable
+target = 'charges'
+
+# Identify numerical independent variables (excluding the target)
+num_cols = df.select_dtypes(include=['float64', 'int64']).columns
+independent_vars = [col for col in num_cols if col != target]
+
+# Bivariate analysis: scatter plots
+for col in independent_vars:
+    plt.figure(figsize=(8, 6))
+    sns
+Q5)
+import pandas as pd
+import seaborn as sns
+import matplotlib.pyplot as plt
+
+# Load the dataset
+df = pd.read_csv('your_file.csv')
+
+# Select numerical columns only
+num_cols = df.select_dtypes(include=['float64', 'int64'])
+
+# Create a pair plot
+sns.pairplot(num_cols, diag_kind='kde', corner=True)
+plt.suptitle('Pair Plot of Numerical Variables', fontsize=16, y=1.02)
+plt.show()
+
+
+Q6)import pandas as pd
+import seaborn as sns
+import matplotlib.pyplot as plt
+
+# Load your dataset
+df = pd.read_csv('your_file.csv')
+
+# Select numerical columns
+num_cols = df.select_dtypes(include=['float64', 'int64'])
+
+# Calculate the correlation matrix
+corr_matrix = num_cols.corr()
+
+# Generate a heatmap
+plt.figure(figsize=(10, 8))
+sns.heatmap(corr_matrix, annot=True, fmt=".2f", cmap='coolwarm', linewidths=0.5, square=True)
+plt.title(" Correlation Matrix Heatmap", fontsize=16)
+plt.show()
+
+SECTION3; MODEL BUILDING AND EVALUTONE
+
+Q7)import pandas as pd
+from sklearn.model_selection import train_test_split
+
+# Load your dataset
+df = pd.read_csv('your_file.csv')
+
+# Define features (X) and target (y)
+# Replace 'charges' with your actual target column name
+X = df.drop('charges', axis=1)
+y = df['charges']
+
+# OPTION 1: 80-20 Split
+X_train_80, X_test_20, y_train_80, y_test_20 = train_test_split(X, y, test_size=0.2, random_state=42)
+
+# OPTION 2: 70-30 Split
+X_train_70, X_test_30, y_train_70, y_test_30 = train_test_split(X, y, test_size=0.3, random_state=42)
+
+print(" Data split complete.")
+print(f"80-20 Split → Training set: {X_train_80.shape}, Testing set: {X_test_20.shape}")
+print(f"70-30 Split → Training set: {X_train_70.shape}, Testing set: {X_test_30.shape}")
+
+ Q8)import pandas as pd
+from sklearn.model_selection import train_test_split
+from sklearn.linear_model import LinearRegression
+from sklearn.preprocessing import OneHotEncoder
+from sklearn.compose import ColumnTransformer
+from sklearn.pipeline import Pipeline
+
+# Load dataset
+df = pd.read_csv('your_file.csv')
+
+# Separate features (X) and target (y)
+X = df.drop('charges', axis=1)
+y = df['charges']
+
+# Identify categorical and numerical columns
+categorical_cols = X.select_dtypes(include=['object', 'category']).columns.tolist()
+numerical_cols = X.select_dtypes(include=['int64', 'float64']).columns.tolist()
+
+# Preprocessing pipeline for categorical features
+preprocessor = ColumnTransformer(
+    transformers=[
+        ('cat', OneHotEncoder(drop='first'), categoricaL_cols)
+    ],
+    remainder='passthrough'  # Keep numerical columns as is
+)
+
+# Create a pipeline with preprocessor and Linear Regression model
+model_pipeline = Pipeline(steps=[
+    ('preprocessor', preprocessor),
+    ('model', LinearRegression())
+])
+
+# Split into training and test sets (80-20 split)
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+
+# Fit the model
+model_pipeline.fit(X_train, y_train)
+
+# Extract model from pipeline
+lr_model = model_pipeline.named_steps['model']
+
+Q9) import pandas as pd
+import matplotlib.pyplot as plt
+import seaborn as sns
+
+# Load the dataset
+df = pd.read_csv('your_file.csv')
+
+# Assuming 'charges' is the target variable
+target = 'charges'
+
+# Identify numerical independent variables (excluding the target)
+num_cols = df.select_dtypes(include=['float64', 'int64']).columns
+independent_vars = [col for col in num_cols if col != target]
+
+# Bivariate analysis: scatter plots
+for col in independent_vars:
+    plt.figure(figsize=(8, 6))
+    sns.scatterplot(x=df[col], y=df[target], color='teal')
+    plt.title(f'{col} vs {target}')
+    plt.xlabel(col)
+    plt.ylabel(target)
+    plt.grid(True)
+    plt.show()
+
+    # Correlation and observations
+    corr = df[[col, target]].corr().iloc[0, 1]
+    print(f" Correlation between '{col}' and '{target}': {corr:.2f}")
+    if abs(corr) >= 0.7:
+        print("   Strong correlation")
+    elif 0.4 <= abs(corr) < 0.7:
+        print("   Moderate correlation")
+    elif 0.2 <= abs(corr) < 0.4:
+        print("   Weak correlation")
+    else:
+        print("   Very weak or no linear correlation")
+    print("\n" + "-"*60 + "\n")
+
+

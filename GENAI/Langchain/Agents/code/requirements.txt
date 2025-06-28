@@ -1,0 +1,9 @@
+langchain-openai
+langchain-community
+langchain-core
+requests
+duckduckgo-search
+
+langchain-ollama
+langchain-huggingface
+python-dotenv

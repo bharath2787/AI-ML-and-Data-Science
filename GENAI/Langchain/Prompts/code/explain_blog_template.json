@@ -1,0 +1,18 @@
+{
+    "name": null,
+    "input_variables": [
+        "audience_level",
+        "blog_title",
+        "output_format",
+        "tone_input"
+    ],
+    "optional_variables": [],
+    "output_parser": null,
+    "partial_variables": {},
+    "metadata": null,
+    "tags": null,
+    "template": "\nYou are an expert educator. Convert the blog titled \"{blog_title}\" into a beginner-friendly explanation.\n\nAudience Level: {audience_level}  \nTone: {tone_input}  \nTarget Format: {output_format}\n\nGuidelines:\n1. Simplify jargon using everyday language or analogies.  \n2. Where applicable, include code snippets or diagrams to explain concepts.  \n3. Highlight real-world applications or use-cases.  \n4. If certain parts of the blog are ambiguous or missing, clearly state: \"Details not provided.\"\n\nEnsure the explanation is accessible to someone new to the topic and matches the selected tone and format.\n",
+    "template_format": "f-string",
+    "validate_template": true,
+    "_type": "prompt"
+}

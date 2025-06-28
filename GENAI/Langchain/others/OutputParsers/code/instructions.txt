@@ -1,0 +1,19 @@
+ 
+1. create a new venv  
+   python -m venv venv  
+2. activate venv  
+   venv\Scripts\Activate  
+3. create the requirements.txt  
+4. install packages from requirements.txt  
+   pip install -r requirements.txt  
+
+
+how to create a new env in conda :
+
+
+
+conda create --name agents python=3.10
+
+conda activate agents
+
+pip install -r requirements.txt

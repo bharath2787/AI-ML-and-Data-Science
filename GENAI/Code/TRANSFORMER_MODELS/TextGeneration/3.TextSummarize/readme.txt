@@ -1,0 +1,1 @@
+streamlit run withui.py --server.port 8502

@@ -1,0 +1,9 @@
+"Hi, I’m a recent BTech graduate in Computer Science, and I’ve also completed a 5-month Full Stack Data Science and Generative AI certification from NareshIT. The course was very structured and intense — we had two assignments and two tests every week, plus live coding sessions and regular lab work. Honestly, every weekend I was either building a project or solving some new problem. That level of consistency really helped me build confidence and apply what I was learning right away.
+
+For my capstone project, I built an English-to-Hindi language translator using a Seq2Seq model with LSTM in TensorFlow. I handled everything end-to-end — from data cleaning and tokenization to building the encoder-decoder architecture and deploying it with Streamlit. It was a great way to experience the complete deep learning pipeline in action.
+
+Along the way, I also worked on other hands-on projects — like a movie recommendation system using NLP techniques, image classifiers using both custom CNNs and transfer learning, and even a gesture-controlled virtual mouse using OpenCV and MediaPipe.
+
+In the Generative AI space, I’ve built chatbots using models like DialoGPT and Flan-T5, a text summarizer using BART, and apps for image captioning and VQA using the BLIP model — all deployed with simple UIs using Gradio or Streamlit.
+
+I really enjoy building things that work and make sense to users. More than just training models, I like the process of turning ideas into apps that people can actually use. I’m now looking forward to joining a team where I can keep learning, contribute to meaningful projects, and grow as a data scientist."
